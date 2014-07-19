@@ -21,17 +21,23 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int background=0x7f020000;
+        public static final int circle1=0x7f020001;
+        public static final int circle2=0x7f020002;
+        public static final int circle3=0x7f020003;
+        public static final int foreground=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f080007;
+        public static final int action_settings=0x7f080008;
         public static final int activity_quiz=0x7f080001;
         public static final int button1=0x7f080000;
-        public static final int buttonStatDisplay=0x7f080006;
-        public static final int editTextStatDisplay=0x7f080005;
         public static final int fragment_quiz_container=0x7f080003;
         public static final int fragment_quiz_image=0x7f080004;
         public static final int fragment_quiz_list=0x7f080002;
+        public static final int imageViewBackground=0x7f080006;
+        public static final int imageViewForeground=0x7f080005;
+        public static final int textViewAnswerFeedback=0x7f080007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

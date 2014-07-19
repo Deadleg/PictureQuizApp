@@ -9,23 +9,28 @@
 	android:id="@+id/fragment_quiz_image"
     tools:context=".QuizImageFragment" >
 
-    <EditText
-        android:id="@+id/editTextStatDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="60dp"
-        android:ems="10" />
+    <ImageView
+        android:id="@+id/imageViewForeground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
-    <Button
-        android:id="@+id/buttonStatDisplay"
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"  />
+
+    <TextView
+        android:id="@+id/textViewAnswerFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editTextStatDisplay"
-        android:layout_marginLeft="34dp"
-        android:layout_toRightOf="@+id/editTextStatDisplay"
-        android:text="tet" />
+        android:layout_alignTop="@+id/imageViewForeground"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
 
 </RelativeLayout>
