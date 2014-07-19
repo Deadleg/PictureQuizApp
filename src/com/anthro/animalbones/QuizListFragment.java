@@ -1,5 +1,8 @@
 package com.anthro.animalbones;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -10,9 +13,12 @@ import android.widget.ListView;
 public class QuizListFragment extends ListFragment {
 	
 	OnListItemSelectedListener listItemListener;
+	ArrayAdapter<String> adapter;
+	List<String> answers;
 
 	public interface OnListItemSelectedListener {
 		public void answerSelected(String answer);
+		public void setAnswerList();
 	}
 	
 	@Override
@@ -32,9 +38,12 @@ public class QuizListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		String[] values = new String[] { "Pairings", "Standings", "Brackets", "Players"};
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, values);
+		answers = new ArrayList<String>();
+		adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, answers);
 		setListAdapter(adapter);
+		
+		// Get list of answers. Depends if quiz has started of comes from orientation change.
+		listItemListener.setAnswerList();
 	}
 	
 	@Override
