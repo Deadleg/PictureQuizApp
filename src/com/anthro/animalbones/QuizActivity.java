@@ -6,13 +6,12 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.ListFragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
+import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class QuizActivity extends Activity implements QuizListFragment.OnListItemSelectedListener, QuizImageFragment.QuizImageListener {
@@ -104,16 +103,16 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		List<String> newAnswers = quiz.getAnswerList();
 			
 		// Get listView.
-		ListFragment list = (ListFragment) getFragmentManager().findFragmentById(R.id.fragment_quiz_list);
-		ListView listView = (ListView)list.getListView();
-		
+		Fragment list = (Fragment) getFragmentManager().findFragmentById(R.id.fragment_quiz_list);
+		AbsListView listView = (AbsListView)list.getView().findViewById(R.id.gridViewAnswers);
 		// Get the ArrayAdapter.
 		@SuppressWarnings("unchecked")
-		ArrayAdapter<String> adapter = (ArrayAdapter<String>)listView.getAdapter();
+		AnswersAdapter adapter = (AnswersAdapter) listView.getAdapter();
 		
 		// Set the new list in the array adapter.
 		adapter.clear();
 		adapter.addAll(newAnswers);
+		Log.w("text", newAnswers.get(0));
 		adapter.notifyDataSetChanged();
 	}
 	
