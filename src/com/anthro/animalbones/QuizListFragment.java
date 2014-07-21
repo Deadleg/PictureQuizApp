@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
-public class QuizListFragment extends ListFragment {
+public class QuizListFragment extends Fragment {
 	
 	OnListItemSelectedListener listItemListener;
-	ArrayAdapter<String> adapter;
+	AnswersAdapter adapter;
 	List<String> answers;
 
 	public interface OnListItemSelectedListener {
@@ -35,22 +40,34 @@ public class QuizListFragment extends ListFragment {
     }
 	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		LinearLayout rlayout = (LinearLayout) inflater.inflate(R.layout.fragment_quiz_list, container, false);
+		
+		AbsListView absListView = (AbsListView) rlayout.findViewById(R.id.gridViewAnswers);
 		
 		answers = new ArrayList<String>();
-		adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, answers);
-		setListAdapter(adapter);
+		adapter = new AnswersAdapter(getActivity(), android.R.layout.simple_list_item_1, answers);
 		
-		// Get list of answers. Depends if quiz has started of comes from orientation change.
-		listItemListener.setAnswerList();
+		absListView.setAdapter(adapter);
+		
+		absListView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+				AbsListView view = (AbsListView) parent;
+				String item = (String) parent.getItemAtPosition(position);
+				view.setItemChecked(position, true);
+				listItemListener.answerSelected(item);
+			}
+		});
+		
+		return rlayout;
 	}
 	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		String item = (String) getListAdapter().getItem(position);
-		getListView().setItemChecked(position, true);
-		listItemListener.answerSelected(item);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		 super.onActivityCreated(savedInstanceState);
+		 
+		 // Get list of answers. Depends if quiz has started of comes from orientation change.
+		 listItemListener.setAnswerList();
 	}
 
 }
