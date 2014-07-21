@@ -3,22 +3,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/activity_quiz"
-    tools:context=".QuizActivity" >
-  
-    <fragment
-        android:id="@+id/fragment_quiz_list"
-	    android:layout_width="0dp"
-	    android:layout_height="match_parent"
-	    android:layout_weight="1"
-	    class="com.anthro.animalbones.QuizListFragment"
-	    tools:layout="@android:layout/simple_list_item_1" >
-	</fragment>
+    tools:context=".QuizActivity"
+    android:orientation="vertical" >
 
 	<FrameLayout
 	    android:id="@+id/fragment_quiz_container"
-	    android:layout_width="0dp"
-	    android:layout_height="match_parent"
-		android:layout_weight="2" >
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="2" >
 	</FrameLayout>
-
+  
+    <fragment
+        android:id="@+id/fragment_quiz_list"
+        android:layout_height="0dp"
+	    android:layout_width="match_parent"
+	    android:layout_weight="1"  
+	    class="com.anthro.animalbones.QuizListFragment"
+	    tools:layout="@android:layout/simple_list_item_1" >
+	</fragment>
+	
 </LinearLayout>
