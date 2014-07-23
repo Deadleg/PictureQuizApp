@@ -8,7 +8,7 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
-	final static String FRAGMENT_SHOWN = "com.antrho.animalbones.FRAGMENT_SHOWN";
+	final static String FRAGMENT_SHOWN = "com.anthro.animalbones.FRAGMENT_SHOWN";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
