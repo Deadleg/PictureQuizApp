@@ -14,11 +14,12 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class QuizActivity extends Activity implements QuizListFragment.OnListItemSelectedListener, QuizImageFragment.QuizImageListener {
+public class QuizActivity extends Activity implements QuizListFragment.OnListItemSelectedListener, QuizImageFragment.QuizImageListener, QuizInfoBarView.CorrectAnswerListener {
 	
 	QuizImageFragment imageFragment;
 	final static String FRAGMENT_IMAGE = "com.anthro.animalbones.FRAGMENT_IMAGE";
 	public Quiz quiz;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +88,20 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 	@Override
 	public void answerSelected(String answer) {
 		TextView textView = (TextView) imageFragment.getView().findViewById(R.id.textViewAnswerFeedback);
-		if (quiz.isCorrect(answer)) {
-			setNextQuestion();
-			setImages();
-			textView.setText("Correct!");
+		if (quiz.currentQuestion.isOptionQuestion) {
+			if (quiz.isCorrect(answer)) {
+				textView.setText("Correct!");
+				setBarResponse(true);
+			} else {
+				textView.setText("Wrong!");
+			}
 		} else {
-			textView.setText("Wrong!");
+			if (quiz.isCorrect(answer)) {
+				textView.setText("Correct!");
+			} else {
+				textView.setText("Wrong!");
+			}
 		}
-		
 	}
 	
 	public void setNextQuestion() {
@@ -105,8 +112,7 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		// Get listView.
 		Fragment list = (Fragment) getFragmentManager().findFragmentById(R.id.fragment_quiz_list);
 		AbsListView listView = (AbsListView)list.getView().findViewById(R.id.gridViewAnswers);
-		// Get the ArrayAdapter.
-		@SuppressWarnings("unchecked")
+		// Get the adapter.
 		AnswersAdapter adapter = (AnswersAdapter) listView.getAdapter();
 		
 		// Set the new list in the array adapter.
@@ -141,17 +147,44 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 	}
 
 	@Override
-	public void imagePressed(int colour) {
+	public boolean imagePressed(int colour) {
 		if (!quiz.currentQuestion.isOptionQuestion) {
+			// Check if answer is correct.
 			if (quiz.animal.boneColours.get(quiz.currentQuestion.correctAnswer) == colour) {
 				answerSelected(quiz.currentQuestion.correctAnswer);
+				return true;
 			} else {
 				answerSelected("");
 			}
 		} else {
 			// Do nothing.
 		}
-		
+		return false;
+	}
+
+	@Override
+	public void goToNextQuestion() {
+		setNextQuestion();
+		setImages();
+	}
+
+	@Override
+	public boolean setBarResponse(boolean isCorrect) {
+		QuizInfoBarView qView = (QuizInfoBarView) findViewById(R.id.quizInfoView);
+		qView.setResponse(isCorrect);
+		return false;
+	}
+
+	@Override
+	public boolean isResponseViewCorrect() {
+		QuizInfoBarView qView = (QuizInfoBarView) findViewById(R.id.quizInfoView);
+		return qView.isCorrectDrawn();
+	}
+
+	@Override
+	public void resetBarView() {
+		QuizInfoBarView qView = (QuizInfoBarView) findViewById(R.id.quizInfoView);
+		qView.disableCorrectAnswerView();
 	}
 
 

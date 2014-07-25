@@ -1,5 +1,8 @@
 package com.anthro.animalbones;
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -21,7 +24,10 @@ public class QuizImageFragment extends Fragment {
 	public interface QuizImageListener {
 		void displayBackgroundImage(ImageView iView);
 		void displayForegroundImage(ImageView iView);
-		void imagePressed(int colour);
+		public boolean imagePressed(int colour);
+		public boolean setBarResponse(boolean isCorrect);
+		public boolean isResponseViewCorrect();
+		public void resetBarView();
 	}
 	
 	@Override
@@ -49,27 +55,34 @@ public class QuizImageFragment extends Fragment {
 	        	
 	        	ImageView foregroundView = (ImageView) QuizImageFragment.this.getView().findViewById(R.id.imageViewForeground);
 	    		ImageView backgroundView = (ImageView) QuizImageFragment.this.getView().findViewById(R.id.imageViewBackground);
-	        	
+	    		
 	        	switch (action) {
 	        	case MotionEvent.ACTION_UP:
 	        		int touchColour = getHotspotColour(R.id.imageViewBackground, evX, evY);
 	        		ColourTool ct = new ColourTool();
 	        		int tolerance = 25;
-	        		if (ct.coloursMatch(Color.BLACK, touchColour, tolerance)) {
-	        			Log.w("color", "black");
-	        			imageListener.imagePressed(Color.BLACK);
-	        			imageListener.displayBackgroundImage(backgroundView);
-	        			imageListener.displayForegroundImage(foregroundView);
-	        		} else if (ct.coloursMatch(Color.CYAN, touchColour, tolerance)) {
-	        			Log.w("color", "cyan");
-	        			imageListener.imagePressed(Color.CYAN);
-	        			imageListener.displayBackgroundImage(backgroundView);
-	        			imageListener.displayForegroundImage(foregroundView);
-	        		} else if (ct.coloursMatch(Color.DKGRAY, touchColour, tolerance)) {
-	        			Log.w("color", "dkgrey");
-	        			imageListener.imagePressed(Color.DKGRAY);
-	        			imageListener.displayBackgroundImage(backgroundView);
-	        			imageListener.displayForegroundImage(foregroundView);
+	        		Log.w("test", "onTouch");
+	        		List<Integer> colours = Arrays.asList(Color.BLACK, Color.CYAN, Color.DKGRAY);
+	        		
+	        		// qView is drawn iff question is answered correctly.
+	        		if (imageListener.isResponseViewCorrect()) {
+	        			// imageListener.resetBarView();
+	        		} else {
+	        			boolean answerFound = false;
+	        			int i = 0;
+	        			while (!answerFound && i < colours.size()) {
+	        				if (ct.coloursMatch(colours.get(i), touchColour, tolerance)) {
+	        					Log.w("color", "" + colours.get(i));
+			        			boolean isCorrect = imageListener.imagePressed(colours.get(i));
+			        			imageListener.displayBackgroundImage(backgroundView);
+			        			imageListener.displayForegroundImage(foregroundView);
+			        			imageListener.setBarResponse(isCorrect);
+
+			        			answerFound = true;
+		        			} else {
+		        				i++;
+		        			}
+	        			}
 	        		}
 	        	}
 	        	
@@ -82,7 +95,7 @@ public class QuizImageFragment extends Fragment {
 
 		imageListener.displayBackgroundImage(backgroundView);
     	imageListener.displayForegroundImage(foregroundView);
-
+    	
 		return layout;
 	}
 	
