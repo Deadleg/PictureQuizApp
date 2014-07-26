@@ -13,6 +13,7 @@ public final class R {
     public static final class color {
         public static final int blue100=0x7f040000;
         public static final int lightGreenCorrect=0x7f040001;
+        public static final int redIncorrect=0x7f040002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -33,18 +34,17 @@ public final class R {
         public static final int ic_launcher=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000c;
+        public static final int action_settings=0x7f09000b;
         public static final int activity_quiz=0x7f090001;
         public static final int answer_row=0x7f090005;
         public static final int button1=0x7f090000;
         public static final int fragment_quiz_container=0x7f090003;
         public static final int fragment_quiz_image=0x7f090007;
         public static final int fragment_quiz_list=0x7f090004;
-        public static final int gridViewAnswers=0x7f09000b;
+        public static final int gridViewAnswers=0x7f09000a;
         public static final int imageViewBackground=0x7f090009;
         public static final int imageViewForeground=0x7f090008;
         public static final int quizInfoView=0x7f090002;
-        public static final int textViewAnswerFeedback=0x7f09000a;
         public static final int textViewAnswerString=0x7f090006;
     }
     public static final class layout {

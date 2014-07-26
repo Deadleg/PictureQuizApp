@@ -2,4 +2,5 @@
 <resources>
     <color name="blue100">#b3e5fc</color>
     <color name="lightGreenCorrect">#76ff03</color>
+    <color name="redIncorrect">#aa00ff</color>
 </resources>

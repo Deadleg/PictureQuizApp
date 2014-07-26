@@ -8,11 +8,9 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class QuizActivity extends Activity implements QuizListFragment.OnListItemSelectedListener, QuizImageFragment.QuizImageListener, QuizInfoBarView.CorrectAnswerListener {
 	
@@ -20,7 +18,6 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 	final static String FRAGMENT_IMAGE = "com.anthro.animalbones.FRAGMENT_IMAGE";
 	public Quiz quiz;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,24 +81,12 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+	// Called by list fragment
 	@Override
 	public void answerSelected(String answer) {
-		TextView textView = (TextView) imageFragment.getView().findViewById(R.id.textViewAnswerFeedback);
-		if (quiz.currentQuestion.isOptionQuestion) {
-			if (quiz.isCorrect(answer)) {
-				textView.setText("Correct!");
-				setBarResponse(true);
-			} else {
-				textView.setText("Wrong!");
-			}
-		} else {
-			if (quiz.isCorrect(answer)) {
-				textView.setText("Correct!");
-			} else {
-				textView.setText("Wrong!");
-			}
-		}
+		boolean isCorrect = quiz.isCorrect(answer);
+		setBarResponse(isCorrect);
 	}
 	
 	public void setNextQuestion() {
@@ -118,34 +103,31 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		// Set the new list in the array adapter.
 		adapter.clear();
 		adapter.addAll(newAnswers);
-		Log.w("text", newAnswers.get(0));
 		adapter.notifyDataSetChanged();
 	}
 	
-	private void setImages() {
+	@Override
+	public void setImages() {
+		// Get ImageViews
 		ImageView foregroundView = (ImageView) imageFragment.getView().findViewById(R.id.imageViewForeground);
 		ImageView backgroundView = (ImageView) imageFragment.getView().findViewById(R.id.imageViewBackground);
 		
-		displayForegroundImage(foregroundView);
-		displayBackgroundImage(backgroundView);
-	}
-	
-	public void displayForegroundImage(ImageView iView) {
+		// Get the images
 		Bitmap foreground = quiz.currentQuestion.imageForeground;
-		iView.setImageBitmap(foreground);
+		Bitmap background = quiz.currentQuestion.imageBackground;
+		
+		// Display the Images
+		foregroundView.setImageBitmap(foreground);
+		backgroundView.setImageBitmap(background);
 	}
 	
-	public void displayBackgroundImage(ImageView iView) {
-		Bitmap background = quiz.currentQuestion.imageBackground;
-		iView.setImageBitmap(background);
-	}
-
 	@Override
 	public void setAnswerList() {
 		// TODO Check where question already exists or is new
 		setNextQuestion();
 	}
 
+	// Called by QuizImageFragment
 	@Override
 	public boolean imagePressed(int colour) {
 		if (!quiz.currentQuestion.isOptionQuestion) {

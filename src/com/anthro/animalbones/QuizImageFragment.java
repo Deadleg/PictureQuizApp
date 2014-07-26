@@ -22,8 +22,7 @@ public class QuizImageFragment extends Fragment {
 	QuizImageListener imageListener;
 	
 	public interface QuizImageListener {
-		void displayBackgroundImage(ImageView iView);
-		void displayForegroundImage(ImageView iView);
+		public void setImages();
 		public boolean imagePressed(int colour);
 		public boolean setBarResponse(boolean isCorrect);
 		public boolean isResponseViewCorrect();
@@ -52,9 +51,6 @@ public class QuizImageFragment extends Fragment {
 	        	final int action = event.getAction();
 	        	final int evX = (int)event.getX();
 	        	final int evY = (int)event.getY();
-	        	
-	        	ImageView foregroundView = (ImageView) QuizImageFragment.this.getView().findViewById(R.id.imageViewForeground);
-	    		ImageView backgroundView = (ImageView) QuizImageFragment.this.getView().findViewById(R.id.imageViewBackground);
 	    		
 	        	switch (action) {
 	        	case MotionEvent.ACTION_UP:
@@ -74,8 +70,7 @@ public class QuizImageFragment extends Fragment {
 	        				if (ct.coloursMatch(colours.get(i), touchColour, tolerance)) {
 	        					Log.w("color", "" + colours.get(i));
 			        			boolean isCorrect = imageListener.imagePressed(colours.get(i));
-			        			imageListener.displayBackgroundImage(backgroundView);
-			        			imageListener.displayForegroundImage(foregroundView);
+			        			imageListener.setImages();
 			        			imageListener.setBarResponse(isCorrect);
 
 			        			answerFound = true;
@@ -90,13 +85,13 @@ public class QuizImageFragment extends Fragment {
 	        }
 	    });
 		
-		ImageView foregroundView = (ImageView) layout.findViewById(R.id.imageViewForeground);
-		ImageView backgroundView = (ImageView) layout.findViewById(R.id.imageViewBackground);
-
-		imageListener.displayBackgroundImage(backgroundView);
-    	imageListener.displayForegroundImage(foregroundView);
-    	
 		return layout;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		imageListener.setImages();
 	}
 	
 	public int getHotspotColour (int hotspotId, int x, int y) {

@@ -65,15 +65,22 @@ public class QuizInfoBarView extends LinearLayout {
 	}
 	
 	public void setResponse(boolean isCorrect) {
+		correctDrawn = isCorrect;
 		if (isCorrect) {
 			responseView.setText("Correct!");
-			correctDrawn = isCorrect;
 			drawCorrectAnswerView();
 		} else {
 			responseView.setText("Incorrect!");
+			drawIncorrectAnswerView();
 		}
 	}
 	
+	private void drawIncorrectAnswerView() {
+		int redIncorrectColour = getResources().getColor(R.color.redIncorrect);
+		responseView.setBackgroundColor(redIncorrectColour);
+		
+	}
+
 	private void drawCorrectAnswerView() {
 		int correctGreenColour = getResources().getColor(R.color.lightGreenCorrect);
 		responseView.setClickable(true);
