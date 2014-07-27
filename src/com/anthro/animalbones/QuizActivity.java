@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 
@@ -117,8 +118,15 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		Bitmap background = quiz.currentQuestion.imageBackground;
 		
 		// Display the Images
-		foregroundView.setImageBitmap(foreground);
 		backgroundView.setImageBitmap(background);
+		foregroundView.setImageBitmap(foreground);
+		
+		if (quiz.currentQuestion.isOptionQuestion) {
+			backgroundView.setVisibility(View.VISIBLE);
+			foregroundView.bringToFront();
+		} else {
+			backgroundView.setVisibility(View.INVISIBLE);
+		}
 	}
 	
 	@Override
