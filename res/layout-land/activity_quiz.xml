@@ -2,23 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="horizontal"
     android:id="@+id/activity_quiz"
     tools:context=".QuizActivity" >
-  
-    <fragment
-        android:id="@+id/fragment_quiz_list"
-	    android:layout_width="0dp"
-	    android:layout_height="match_parent"
-	    android:layout_weight="1"
-	    class="com.anthro.animalbones.QuizListFragment"
-	    tools:layout="@android:layout/simple_list_item_1" >
-	</fragment>
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+    <com.anthro.animalbones.QuizInfoBarView
+        android:id="@+id/quizInfoView"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/blue100" />
+
+	<fragment
+	    android:id="@+id/fragment_quiz_list"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    class="com.anthro.animalbones.QuizListFragment"
+	    tools:layout="@android:layout/simple_list_item_1" />
+	
+    </LinearLayout>
+    
 	<FrameLayout
 	    android:id="@+id/fragment_quiz_container"
-	    android:layout_width="0dp"
+	   android:layout_width="0dp"
 	    android:layout_height="match_parent"
-		android:layout_weight="2" >
+	    android:layout_weight="2" >
 	</FrameLayout>
+
 
 </LinearLayout>
