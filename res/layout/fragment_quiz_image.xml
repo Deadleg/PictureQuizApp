@@ -9,6 +9,13 @@
 	android:id="@+id/fragment_quiz_image"
     tools:context=".QuizImageFragment" >
 
+	<ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>   
+    
     <ImageView
         android:id="@+id/imageViewForeground"
         android:layout_width="fill_parent"
@@ -16,13 +23,5 @@
         android:scaleType="fitCenter"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
-
-    <ImageView
-        android:id="@+id/imageViewBackground"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"  />
 
 </RelativeLayout>
