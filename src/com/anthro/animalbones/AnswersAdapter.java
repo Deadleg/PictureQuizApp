@@ -13,11 +13,13 @@ public class AnswersAdapter extends ArrayAdapter<String> {
 
 	private List<String> data;
 	private LayoutInflater inflater;
+	public boolean isClickable;
 	
 	public AnswersAdapter(Context context, int layoutResourceId, List<String> data) {
 		super(context, layoutResourceId, data);
 		inflater = LayoutInflater.from(context);
 		this.data = data;
+		isClickable = true;
 	}
 	
 	@Override
@@ -35,4 +37,12 @@ public class AnswersAdapter extends ArrayAdapter<String> {
 		return row;
 	}
 	
+	@Override
+	public boolean isEnabled(int position) {
+	    return isClickable;
+	}
+	
+	public void setIsClickable(boolean isClickable) {
+		this.isClickable = isClickable;
+	}
 }
