@@ -1,4 +1,4 @@
-package com.anthro.animalbones;
+package wk.picturequizapp;
 
 import java.util.ArrayList;
 import java.util.Collections;

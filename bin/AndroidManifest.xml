@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.anthro.animalbones.MainActivity"
+            android:name="wk.picturequizapp.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.anthro.animalbones.QuizActivity"
+            android:name="wk.picturequizapp.QuizActivity"
             android:label="@string/activity_quiz_name"
             android:noHistory="true"
-            android:parentActivityName="com.anthro.animalbones.MainActivity"
+            android:parentActivityName="wk.picturequizapp.MainActivity"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".QuizActivity" >
 
-    <com.anthro.animalbones.QuizInfoBarView
+    <wk.picturequizapp.QuizInfoBarView
         android:id="@+id/quizInfoView"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="144dp"
         android:layout_weight="0.00"
-        class="com.anthro.animalbones.QuizListFragment"
+        class="wk.picturequizapp.QuizListFragment"
         tools:layout="@android:layout/simple_list_item_1" />
 
 </LinearLayout>

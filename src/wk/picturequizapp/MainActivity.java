@@ -1,4 +1,6 @@
-package com.anthro.animalbones;
+package wk.picturequizapp;
+
+import com.anthro.animalbones.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

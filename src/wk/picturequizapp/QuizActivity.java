@@ -1,7 +1,9 @@
-package com.anthro.animalbones;
+package wk.picturequizapp;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.anthro.animalbones.R;
 
 import android.app.Activity;
 import android.app.Fragment;
