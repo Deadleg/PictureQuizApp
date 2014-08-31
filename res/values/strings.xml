@@ -5,6 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="button_start">Start</string>
-    <string name="activity_quiz_name">Quiz Activity</string>
+    <string name="activity_quiz_name">Quiz</string>
 
 </resources>

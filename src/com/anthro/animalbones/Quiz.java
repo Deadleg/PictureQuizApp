@@ -9,11 +9,13 @@ public class Quiz {
 	public Question currentQuestion;
 	public Animal animal;
 	public int numberOfOptions;
+	public int numberOfQuestionsAnswered;
 	
 	public Quiz(Animal animal) {
 		this.animal = animal;
 		getNextQuestion();
 		numberOfOptions = 4;
+		numberOfQuestionsAnswered = 0;
 	}
 	
 	public boolean isCorrect(String answer) {
@@ -22,6 +24,11 @@ public class Quiz {
 	
 	public void getNextQuestion() {
 		String bone = animal.getRandomBone();
+		if (currentQuestion != null) {
+			while (bone == currentQuestion.correctAnswer) {
+				bone = animal.getRandomBone();
+			}
+		}
 		currentQuestion = new Question(bone, animal, numberOfOptions);
 	}
 	

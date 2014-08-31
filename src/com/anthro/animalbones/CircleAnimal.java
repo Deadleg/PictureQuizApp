@@ -18,6 +18,8 @@ public class CircleAnimal extends Animal {
 		sectionImageHotspotButtons = new HashMap<String, Bitmap>();
 		boneColours = new HashMap<String, Integer>();
 		
+		animalName = "Circle";
+		
 		boneNames.add("circle1");
 		boneNames.add("circle2");
 		boneNames.add("circle3");

@@ -1,6 +1,8 @@
 package com.anthro.animalbones;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,8 +26,21 @@ public class MainActivity extends Activity {
 	}
 	
 	public void startQuiz(View view) {
-		Intent intent = new Intent(this, QuizActivity.class);
-		startActivity(intent);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Select your animal.")
+			.setItems(R.array.animals, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					switch (which) {
+						case 0: Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+				    			startActivity(intent);
+				    			break;
+					}
+						
+				}
+			});
+		
+		builder.show();
 	}
 
 }

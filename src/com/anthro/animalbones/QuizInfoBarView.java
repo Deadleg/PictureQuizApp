@@ -10,14 +10,16 @@ import android.widget.TextView;
 
 public class QuizInfoBarView extends LinearLayout {
 	
-	private TextView titleView;
-	private TextView responseView;
-	private TextView numCorrectAnswersView;
+	private TextView titleView;					// Animal name
+	private TextView responseView;				// Correct/incorrect view
+	private TextView numCorrectAnswersView;		
 	private boolean correctDrawn;
 	public CorrectAnswerListener answerListener;
 	
 	public interface CorrectAnswerListener {
 		void goToNextQuestion();
+		public void setNumberView();
+		public void setAnimalText();
 	}
 
 	public QuizInfoBarView(Context context) {
@@ -31,13 +33,22 @@ public class QuizInfoBarView extends LinearLayout {
     }
 	
 	private void init(Context context) {
+		try {
+            answerListener = (CorrectAnswerListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CorrectAnswerListener");
+        }
+		
 		titleView = new TextView(context);
-		LinearLayout.LayoutParams params  = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
+		
+		LinearLayout.LayoutParams params  = new LinearLayout.LayoutParams(0, android.view.ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+		titleView.setPadding(20, 0, 0, 0);
 		titleView.setLayoutParams(params);
 		titleView.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 		addView(titleView);
 		
 		responseView = new TextView(context);
+		
 		responseView.setLayoutParams(params);
 		responseView.setGravity(Gravity.CENTER);
 		responseView.setOnClickListener(new OnClickListener() {
@@ -51,17 +62,12 @@ public class QuizInfoBarView extends LinearLayout {
 		addView(responseView);
 		
 		numCorrectAnswersView = new TextView(context);
+		numCorrectAnswersView.setPadding(0, 0, 20, 0);
 		numCorrectAnswersView.setLayoutParams(params);
 		numCorrectAnswersView.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 		addView(numCorrectAnswersView);
 		
 		correctDrawn = false;
-		
-		try {
-            answerListener = (CorrectAnswerListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement CorrectAnswerListener");
-        }
 	}
 	
 	public void setResponse(boolean isCorrect) {
@@ -101,6 +107,14 @@ public class QuizInfoBarView extends LinearLayout {
 	
 	public boolean isCorrectDrawn() {
 		return correctDrawn;
+	}
+	
+	public void setNumberOfAnswers(int number) {
+		numCorrectAnswersView.setText("" + number);
+	}
+
+	public void setAnimalText(String animalName) {
+		titleView.setText(animalName);
 	}
 	
 }

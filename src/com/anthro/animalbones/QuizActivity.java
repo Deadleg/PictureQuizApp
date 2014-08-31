@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AbsListView;
@@ -24,11 +25,17 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_quiz);
 		
+		setTitle(R.string.activity_quiz_name);
+		
 		// Initialize quiz
 		quiz = new Quiz(new CircleAnimal(this));
 		
 		// Initialize fragments
 		imageFragment = new QuizImageFragment();
+		
+		// Set text in infoBarView.
+		setNumberView();		// TODO Set number of correct question answered.
+		setAnimalText();
 		
 		// Setup fragments
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -96,10 +103,17 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		List<String> newAnswers = quiz.getAnswerList();
 			
 		// Get listView.
-		Fragment list = (Fragment) getFragmentManager().findFragmentById(R.id.fragment_quiz_list);
+		Fragment list = getFragmentManager().findFragmentById(R.id.fragment_quiz_list);
 		AbsListView listView = (AbsListView)list.getView().findViewById(R.id.gridViewAnswers);
 		// Get the adapter.
 		AnswersAdapter adapter = (AnswersAdapter) listView.getAdapter();
+		
+		// Set list view to be clickable if it is options question.
+		if (quiz.currentQuestion.isOptionQuestion) {
+			adapter.setIsClickable(true);
+		} else {
+			adapter.setIsClickable(false);
+		}
 		
 		// Set the new list in the array adapter.
 		adapter.clear();
@@ -152,10 +166,13 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		return false;
 	}
 
+	// Called by QuizInfoBar when green check is clicked.
 	@Override
 	public void goToNextQuestion() {
 		setNextQuestion();
+		quiz.numberOfQuestionsAnswered++;
 		setImages();
+		setNumberView();
 	}
 
 	@Override
@@ -177,5 +194,17 @@ public class QuizActivity extends Activity implements QuizListFragment.OnListIte
 		qView.disableCorrectAnswerView();
 	}
 
+	@Override
+	public void setNumberView() {
+		QuizInfoBarView bar = (QuizInfoBarView) findViewById(R.id.quizInfoView);
+		bar.setNumberOfAnswers(quiz.numberOfQuestionsAnswered);
+	}
+
+	@Override
+	public void setAnimalText() {
+		QuizInfoBarView bar = (QuizInfoBarView) findViewById(R.id.quizInfoView);
+		Log.w("test", quiz.animal.animalName);
+		bar.setAnimalText(quiz.animal.animalName);
+	}
 
 }

@@ -51,37 +51,51 @@ public class QuizImageFragment extends Fragment {
 	        	final int action = event.getAction();
 	        	final int evX = (int)event.getX();
 	        	final int evY = (int)event.getY();
-	    		
-	        	switch (action) {
-	        	case MotionEvent.ACTION_UP:
-	        		int touchColour = getHotspotColour(R.id.imageViewBackground, evX, evY);
-	        		ColourTool ct = new ColourTool();
-	        		int tolerance = 25;
-	        		Log.w("test", "onTouch");
-	        		List<Integer> colours = Arrays.asList(Color.BLACK, Color.CYAN, Color.DKGRAY);
-	        		
-	        		// qView is drawn iff question is answered correctly.
-	        		if (imageListener.isResponseViewCorrect()) {
-	        			// imageListener.resetBarView();
-	        		} else {
-	        			boolean answerFound = false;
-	        			int i = 0;
-	        			while (!answerFound && i < colours.size()) {
-	        				if (ct.coloursMatch(colours.get(i), touchColour, tolerance)) {
-	        					Log.w("color", "" + colours.get(i));
-			        			boolean isCorrect = imageListener.imagePressed(colours.get(i));
-			        			imageListener.setImages();
-			        			imageListener.setBarResponse(isCorrect);
-
-			        			answerFound = true;
-		        			} else {
-		        				i++;
-		        			}
-	        			}
-	        		}
-	        	}
 	        	
-	        	return true;
+	        	ImageView view = (ImageView) v.findViewById(R.id.imageViewBackground);
+	        	
+	        	// Find the boundries of the box.
+	        	final int yPadding = view.getPaddingTop();
+	        	final int xPadding = view.getPaddingLeft();
+	        	final int maxY = yPadding + view.getHeight();
+	        	final int maxX = xPadding + view.getWidth();
+	        	
+	        	// Check if in x boundries.
+	        	boolean isInXBound = xPadding < evX && evX < maxX;
+	        	boolean isInYBound = yPadding < evY && evY < maxY;
+	        	
+	    		if (isInXBound && isInYBound) {
+		        	switch (action) {
+		        	case MotionEvent.ACTION_UP:
+		        		int touchColour = getHotspotColour(R.id.imageViewBackground, evX, evY);
+		        		ColourTool ct = new ColourTool();
+		        		int tolerance = 25;
+		        		Log.w("test", "onTouch");
+		        		List<Integer> colours = Arrays.asList(Color.BLACK, Color.CYAN, Color.DKGRAY);
+		        		
+		        		// qView is drawn iff question is answered correctly.
+		        		if (imageListener.isResponseViewCorrect()) {
+		        			// imageListener.resetBarView();
+		        		} else {
+		        			boolean answerFound = false;
+		        			int i = 0;
+		        			while (!answerFound && i < colours.size()) {
+		        				if (ct.coloursMatch(colours.get(i), touchColour, tolerance)) {
+		        					Log.w("color", "" + colours.get(i));
+				        			boolean isCorrect = imageListener.imagePressed(colours.get(i));
+				        			imageListener.setImages();
+				        			imageListener.setBarResponse(isCorrect);
+	
+				        			answerFound = true;
+			        			} else {
+			        				i++;
+			        			}
+		        			}
+		        		}
+		        	}
+		        	
+	    		}	
+		        return true;
 	        }
 	    });
 		

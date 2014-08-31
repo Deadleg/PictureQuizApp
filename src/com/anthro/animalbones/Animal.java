@@ -17,6 +17,7 @@ public abstract class Animal {
 	public HashMap<String, Bitmap> sectionImage;
 	public HashMap<String, Bitmap> sectionImageHotspotButtons;
 	public HashMap<String, Integer> boneColours;
+	public String animalName;
 	
 	public List<String> getWrongAnswers(String bone, int n) {
 		int boneIndex = boneNames.indexOf(bone);
