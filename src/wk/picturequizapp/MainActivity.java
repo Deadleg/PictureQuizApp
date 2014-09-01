@@ -1,7 +1,5 @@
 package wk.picturequizapp;
 
-import com.anthro.animalbones.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,7 +10,7 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
-	final static String FRAGMENT_SHOWN = "com.anthro.animalbones.FRAGMENT_SHOWN";
+	final static String FRAGMENT_SHOWN = "wk.picturequizapp.FRAGMENT_SHOWN";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,5 @@
 package wk.picturequizapp;
 
-import com.anthro.animalbones.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;

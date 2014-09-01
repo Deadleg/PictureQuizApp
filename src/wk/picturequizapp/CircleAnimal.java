@@ -2,9 +2,6 @@ package wk.picturequizapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.anthro.animalbones.R;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

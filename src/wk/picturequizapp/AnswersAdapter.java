@@ -1,9 +1,6 @@
 package wk.picturequizapp;
 
 import java.util.List;
-
-import com.anthro.animalbones.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
